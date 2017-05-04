@@ -1,0 +1,47 @@
+1.
+Первый вариант:
+SELECT Movie.year, Rating.stars
+FROM Movie
+INNER JOIN Rating on Movie.mID = Rating.mID
+WHERE Rating.stars in (4, 5);
+
+Второй вариант:
+SELECT Movie.year, Rating.stars
+FROM Movie, Rating
+WHERE Movie.mID = Rating.mID 
+     AND Rating.stars in (4, 5);
+
+
+2.
+SELECT Reviewer.name, Rating.ratingDate
+FROM Reviewer, Rating
+WHERE Rating.rID = Reviewer.rID
+     AND Rating.ratingDate IS NULL;
+
+
+3.
+SELECT Movie.title, MAX(Rating.stars)
+FROM Rating, Movie
+WHERE Movie.mID = Rating.mID
+GROUP BY Movie.title;
+
+
+4.
+SELECT Movie.title
+FROM Movie
+WHERE Movie.mID NOT IN (SELECT DISTINCT Rating.mID 
+                                              FROM Rating);
+
+
+5.
+SELECT DISTINCT Reviewer.name, Movie.title
+FROM Reviewer, Movie, Rating
+WHERE Movie.title = 'Gone with the Wind'
+     AND Movie.mID = Rating.mID
+     AND Rating.rID = Reviewer.rID;
+
+6.
+SELECT Movie.title, MAX(Rating.stars) - MIN(Rating.stars) as difference
+FROM Rating, Movie
+WHERE Movie.mID = Rating.mID
+GROUP BY Movie.title;
