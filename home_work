@@ -27,10 +27,10 @@ GROUP BY Movie.title;
 
 
 4.
-SELECT Movie.title
+SELECT title
 FROM Movie
-WHERE Movie.mID NOT IN (SELECT DISTINCT Rating.mID 
-                                              FROM Rating);
+left JOIN Rating on Movie.mID = Rating.mID
+WHERE Rating.stars IS NULL;
 
 
 5.
